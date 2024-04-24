@@ -7,10 +7,10 @@ from PIL import Image, ImageTk
 import datetime
 from datetime import datetime
 import math
-import socket 
-import json
-import time
-import threading
+import socket  
+import json 
+import time 
+import threading 
 import csv
 import requests
 from concurrent.futures import ThreadPoolExecutor
@@ -162,7 +162,6 @@ class App(tk.Tk):
         self.monitor_heliostat = tk.LabelFrame(self.top_frame_in_monitor, text="Heliostat", font=('Arial', 16),  bg='gray')
         self.monitor_heliostat.pack(side=tk.LEFT, fill='both', expand=True)
 
-       
         #Widget in top frame Calibrate
         self.right_frame = tk.LabelFrame(self.top_frame, text="IP Camera", font=('Arial', 14), bg='gray' )
         self.right_frame.pack(side='left', fill='both', expand=True)
@@ -650,8 +649,6 @@ class App(tk.Tk):
         #self.save_btn.grid(row=1, column=0, pady=5)
         #self.show_frame()  #Display 
 
-         
-
         self.mainloop()  #Starts GUI
 
 
@@ -661,7 +658,7 @@ class App(tk.Tk):
             self.cap1 = cv2.VideoCapture(self.url_camera1)
             self.show_frame()  #Display 
             self.update_vid_status = False
-            print("Start Video")
+            # print("Start Video")
 
         else:
             self.open_vid = False
@@ -680,20 +677,20 @@ class App(tk.Tk):
             self.receiver_frame.create_image(0,0,anchor=tk.NW, image=self.receiver_vid)
 
             self.update_vid_status = True
-            print("Stop Video")
+            # print("Stop Video")
 
 
 
 
     def combobox_callback(self, event):
-        print(self.target_tracking.get(),  end=" ")
+        # print(self.target_tracking.get(),  end=" ")
         if(self.target_tracking.get() == "Calibrate"): self.state_change = True
         elif(self.target_tracking.get() == "Receiver"): self.state_change = False
-        else: print("selet target ?")
+        # else: print("selet target ?")
 
     def select_item(self, event):
         cur_item = self.tabview.focus()
-        print(self.tabview.item(cur_item))
+        # print(self.tabview.item(cur_item))
 
     def click_event(self, event):
         # messagebox.showinfo("Information","Origin Done.")
@@ -728,10 +725,10 @@ class App(tk.Tk):
     def set_off_set_recv(self):
         #conn = self.get_client(self.clicked.get())
         payload = {'topic': 'off_set_scale', 'x': self.off_set_x.get(0.1, "end-1c"), 'y': self.off_set_y.get(0.1, "end-1c")}
-        print(payload)
+        # print(payload)
         index = int(self.clicked.get().replace("select ",''))
         result = requests.post(self.url_request_update[index], json=payload, timeout=1)
-        print(result.status_code)
+        # print(result.status_code)
         # conn.sendall(payload.encode('utf-8'))
 
     def get_url(self, url):
@@ -920,11 +917,10 @@ class App(tk.Tk):
             payload = {"topic": "rtc", 'hour': hour, 'minute': minute, 'sec':sec}
             result = requests.post(self.url_update_rtc[index], json=payload, timeout=1)
             if(result.status_code == 200):
-                print(result.text)
+                # print(result.text)
                 data = json.loads(result.text)
                 messagebox.showinfo("Time", data['time'])
                 # print(data['time'])
-               
         except requests.exceptions.ReadTimeout as ee:
             print("Time Out")
         except requests.exceptions.ConnectionError as ee:
@@ -934,7 +930,7 @@ class App(tk.Tk):
     
     def on_close(self): 
         self.current_id = int(self.clicked.get().replace("select ",''))
-        print(self.current_id)
+        # print(self.current_id)
 
         # conn = self.get_client(self.clicked.get())
         # conn.close()
@@ -1037,7 +1033,7 @@ class App(tk.Tk):
     def send_text_file(self):
         try:
             index = int(self.clicked.get().replace("select ",''))
-            print(index)
+            # print(index)
             global msg_file_path
             self.msg_recv.config(text='File: 0 bytes')
             webbrowser.open(self.url_update_path[index])
@@ -1079,12 +1075,12 @@ class App(tk.Tk):
     def mode_call_back(self):
 
         self.last_time_tracking = time.time()
-        print("Start Timer:", self.last_time_tracking)
+        # print("Start Timer:", self.last_time_tracking)
         if self.state:
             self.mode_btn.config(text="Auto")
             self.mode_btn.config(bg="green")
             self.disabaled_button()
-            print("Auto Mode")
+            # print("Auto Mode")
             self.state = False
             self.change_target = True
             status = 0
@@ -1100,20 +1096,20 @@ class App(tk.Tk):
     def path_call_back(self):
         try:
             index = int(self.clicked.get().replace("select ",''))
-            print(index)
+            # print(index)
             payload = {"topic": "mode", "status": self.status_run, "speed":self.speed_input.get()}
             result = requests.post(self.url_request_update[index], json=payload, timeout=1)
-            print(result.status_code)
+            # print(result.status_code)
             if not self.status_run:
                 self.status_run = 1
                 # self.path_btn.config(text = 'Run Path') 
                 # self.path_btn.config(bg = 'gray')
-                print("Path State: ", self.status_run)
+                # print("Path State: ", self.status_run)
             else:
                 self.status_run = 0
                 # self.path_btn.config(text = 'Path Working')  
                 # self.path_btn.config(bg = 'green')              
-                print("Path State: ", self.status_run)
+                # print("Path State: ", self.status_run)
                
         except requests.exceptions.ReadTimeout as ee:
             print("Time Out")
@@ -1142,7 +1138,7 @@ class App(tk.Tk):
             result = requests.post(self.url_request_auto[index], json=payload,)
             # print(result.status_code)
         except requests.exceptions.ReadTimeout as ee:
-                print("Time Out")
+            print("Time Out")
         except requests.exceptions.ConnectionError as ee:
             print("Connection Error")
 
@@ -1175,7 +1171,7 @@ class App(tk.Tk):
                     payload = {"topic": "origin", "axis": "y", "speed":self.speed_manual.get()}            
                 try:
                     result = requests.post(self.url_request_update[index], json=payload, timeout=1)
-                    print(result.status_code)
+                    # print(result.status_code)
                 except requests.exceptions.ReadTimeout as ee:
                     pass
                 except requests.exceptions.ConnectionError as ee:
@@ -1188,7 +1184,7 @@ class App(tk.Tk):
         if self.clicked.get().replace("select ",'') == '0':
             if self.client_data['ip_addr'] == '192.168.1.110': 
                 self.write_data(self.path_recv_log, self.client_data['data']['curr_x'], self.client_data['data']['curr_y'])
-                print("Button Save Pressed.")
+                # print("Button Save Pressed.")
 
     def calculate_center(self, contours):
         m = cv2.moments(contours)
@@ -1225,7 +1221,7 @@ class App(tk.Tk):
                         #     self.feed_bcak('y', cx, cy, self.kp.get(), self.ki.get(), self.kd.get(), x_medium, y_medium, self.max_speed.get(), self.off_set.get(), "1")
                         # elif((cx < int(x_medium - self.off_set.get())) or (cx > int(x_medium + self.off_set.get()))):
                         #     self.feed_bcak('x', cx, cy, self.kp.get(), self.ki.get(), self.kd.get(), x_medium, y_medium, self.max_speed.get(), self.off_set.get(), "1")
-                        print(cx, cy)
+                        # print(cx, cy)
                         self.feed_bcak('x', cx, cy, self.kp.get(), self.ki.get(), self.kd.get(), x_medium, y_medium, self.max_speed.get(), self.off_set.get(), "1")
 
                     if (int(x_medium + self.off_set.get()) > cx > int(x_medium - self.off_set.get())) and (int(y_medium + self.off_set.get()) > cy > int(y_medium - self.off_set.get())):
@@ -1354,7 +1350,6 @@ class App(tk.Tk):
             #             #print("Start tracking recv")
             #             self.get_contours(sorted_recv_contours, self.recv_frame, 160, 160, self.path_recv_log1, False, 1)
 
-           
             if self.state_change:
                 #Calibarte
                 if sorted_calibarte_contours: self.get_contours(sorted_calibarte_contours, self.roi, 320, 240, self.path_data_log1, True, 0)
