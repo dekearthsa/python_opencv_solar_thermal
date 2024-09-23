@@ -642,63 +642,63 @@ class App(tk.Tk):
 
 
     ### video update ###
-    # def update_vid(self):
-    #     if self.update_vid_status:
-    #         self.open_vid = True
-    #         self.cap1 = cv2.VideoCapture(self.url_camera1)
-    #         self.show_frame()  #Display 
-    #         self.update_vid_status = False
-    #         print("Start Video")
-    #     else:
-    #         self.open_vid = False
-    #         self.calibrate_frame.after_cancel(self.show_frame)
-    #         self.cap1.release()
+    def update_vid(self):
+        if self.update_vid_status:
+            self.open_vid = True
+            self.cap1 = cv2.VideoCapture(self.url_camera1)
+            self.show_frame()  #Display 
+            self.update_vid_status = False
+            print("Start Video")
+        else:
+            self.open_vid = False
+            self.calibrate_frame.after_cancel(self.show_frame)
+            self.cap1.release()
 
-    #         blank_img_cal = np.zeros((480,640,3), np.uint8)
-    #         blank_img_recv = np.zeros((320,320,3), np.uint8)
+            blank_img_cal = np.zeros((480,640,3), np.uint8)
+            blank_img_recv = np.zeros((320,320,3), np.uint8)
 
-    #         self.calibrate = Image.fromarray(blank_img_cal)
-    #         self.calibrate = ImageTk.PhotoImage(image=self.calibrate)
-    #         self.calibrate_frame.create_image(0, 0,  anchor=tk.NW, image=self.calibrate)
+            self.calibrate = Image.fromarray(blank_img_cal)
+            self.calibrate = ImageTk.PhotoImage(image=self.calibrate)
+            self.calibrate_frame.create_image(0, 0,  anchor=tk.NW, image=self.calibrate)
 
-    #         recv = Image.fromarray(blank_img_recv)
-    #         self.receiver_vid = ImageTk.PhotoImage(recv)
-    #         self.receiver_frame.create_image(0,0,anchor=tk.NW, image=self.receiver_vid)
+            recv = Image.fromarray(blank_img_recv)
+            self.receiver_vid = ImageTk.PhotoImage(recv)
+            self.receiver_frame.create_image(0,0,anchor=tk.NW, image=self.receiver_vid)
 
-    #         self.update_vid_status = True
-    #         print("Stop Video")
-
-
-    # def combobox_callback(self, event):
-    #     print(self.target_tracking.get(),  end=" ")
-    #     if(self.target_tracking.get() == "Calibrate"): self.state_change = True
-    #     elif(self.target_tracking.get() == "Receiver"): self.state_change = False
-    #     else: print("selet target ?")
-
-    # def select_item(self, event):
-    #     cur_item = self.tabview.focus()
-    #     print(self.tabview.item(cur_item))
+            self.update_vid_status = True
+            print("Stop Video")
 
 
-    # def click_event(self, event):
-    #     self.roi = cv2.cvtColor(self.roi, cv2.COLOR_RGB2BGR)
-    #     cv2.putText(self.roi, f'{datetime.now().strftime("%d/%m/%Y/ %H:%M:%S")}', (0, 475), 2, 0.65, (255, 255, 255), 1)
-    #     cv2.imwrite(self.path_img_log+f'{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'+'.jpg', self.roi, )
+    def combobox_callback(self, event):
+        print(self.target_tracking.get(),  end=" ")
+        if(self.target_tracking.get() == "Calibrate"): self.state_change = True
+        elif(self.target_tracking.get() == "Receiver"): self.state_change = False
+        else: print("selet target ?")
+
+    def select_item(self, event):
+        cur_item = self.tabview.focus()
+        print(self.tabview.item(cur_item))
+
+
+    def click_event(self, event):
+        self.roi = cv2.cvtColor(self.roi, cv2.COLOR_RGB2BGR)
+        cv2.putText(self.roi, f'{datetime.now().strftime("%d/%m/%Y/ %H:%M:%S")}', (0, 475), 2, 0.65, (255, 255, 255), 1)
+        cv2.imwrite(self.path_img_log+f'{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'+'.jpg', self.roi, )
     
     #------------------------ Show value Slider ------------------#
-    # def slider_changed(self, event):
-    #     self.h_lower_label.config(text="H_L {}".format(self.h_lower.get()))  
-    #     self.s_lower_label.config(text="S_L {}".format(self.s_lower.get()))  
-    #     self.v_lower_label.config(text="V_L {}".format(self.v_lower.get()))  
-    #     self.h_upper_label.config(text="H_U {}".format(self.h_upper.get()))  
-    #     self.s_upper_label.config(text="S_U {}".format(self.s_upper.get()))  
-    #     self.v_upper_label.config(text="V_U {}".format(self.v_upper.get()))
-    #     self.filter_label.config(text="Fillter {}".format(int(self.area.get())))
-    #     self.start_row_label.config(text="Start row {}".format(int(self.start_row.get())))
-    #     self.end_row_label.config(text="End row {}".format(int(self.end_row.get())))
-    #     self.start_col_label.config(text="Start column {}".format(int(self.start_col.get())))
-    #     self.end_col_label.config(text="End column {}".format(int(self.end_col.get())))
-    #     self.off_set_label.config(text="offset {}".format(int(self.off_set.get())))
+    def slider_changed(self, event):
+        self.h_lower_label.config(text="H_L {}".format(self.h_lower.get()))  
+        self.s_lower_label.config(text="S_L {}".format(self.s_lower.get()))  
+        self.v_lower_label.config(text="V_L {}".format(self.v_lower.get()))  
+        self.h_upper_label.config(text="H_U {}".format(self.h_upper.get()))  
+        self.s_upper_label.config(text="S_U {}".format(self.s_upper.get()))  
+        self.v_upper_label.config(text="V_U {}".format(self.v_upper.get()))
+        self.filter_label.config(text="Fillter {}".format(int(self.area.get())))
+        self.start_row_label.config(text="Start row {}".format(int(self.start_row.get())))
+        self.end_row_label.config(text="End row {}".format(int(self.end_row.get())))
+        self.start_col_label.config(text="Start column {}".format(int(self.start_col.get())))
+        self.end_col_label.config(text="End column {}".format(int(self.end_col.get())))
+        self.off_set_label.config(text="offset {}".format(int(self.off_set.get())))
 
     ### Here_is Sending data to heliostat? ###
     def set_off_set(self):
@@ -715,11 +715,11 @@ class App(tk.Tk):
         result = requests.post(self.url_request_update[index], json=payload, timeout=1)
         print(result.status_code)
 
-    # def get_url(self, url):
-    #     try:
-    #         return requests.get(url, timeout=1).json()
-    #     except Exception as e:
-    #         pass
+    def get_url(self, url):
+        try:
+            return requests.get(url, timeout=1).json()
+        except Exception as e:
+            pass
 
     ### Here_is connect to server function ### 
     def bind_server(self):
@@ -937,109 +937,109 @@ class App(tk.Tk):
                 self.path_btn.config(bg = 'gray')     
     
     #--------------------------log data---------------------------#
-    # def write_data(self, path, curr_x, curr_y, err_x, err_y):
-    #     with open(path, 'a') as f:
-    #         f.write('{},{},{},{},{}\n'.format(datetime.now(), curr_x, curr_y, err_x, err_y))
+    def write_data(self, path, curr_x, curr_y, err_x, err_y):
+        with open(path, 'a') as f:
+            f.write('{},{},{},{},{}\n'.format(datetime.now(), curr_x, curr_y, err_x, err_y))
 
     #-------------------------log data csv------------------------#
-    # def write_csv(self, path, curr_x, curr_y, err_x, err_y):
-    #     with open(path, 'a') as f:
-    #         writer = csv.writer(f, lineterminator='\n')
-    #         date = datetime.now().strftime("%Y-%m-%d")
-    #         time = datetime.now().strftime("%H:%M:%S")
-    #         writer.writerow([date, time, curr_x, curr_y, err_x, err_y])
+    def write_csv(self, path, curr_x, curr_y, err_x, err_y):
+        with open(path, 'a') as f:
+            writer = csv.writer(f, lineterminator='\n')
+            date = datetime.now().strftime("%Y-%m-%d")
+            time = datetime.now().strftime("%H:%M:%S")
+            writer.writerow([date, time, curr_x, curr_y, err_x, err_y])
 
-    # def open_text_file(self):
-    #     global msg_file_path
-    #     msg_file_path = ''
-    #     d = {}
-    #     # file type
-    #     filetypes = (('text files', '*.txt'), ('All files', '*.*'))
-    #     # show the open file dialog
-    #     try:
-    #         f = fd.askopenfile(filetypes=filetypes)
-    #         for i in f.readlines()[1:]:
-    #             d['timestamp'] = i.split(',')[0]
-    #             d['x'] = i.split(',')[1]
-    #             d['y'] = i.split(',')[2][:-1]
-    #             msg_file_path += '*'
-    #             msg_file_path += json.dumps(d)
-    #             msg_file_path += '\n'
-    #         msg_file_path += '#'
-    #         with open("F:\\Program PLC\\Solar_thermal_Project\\data\\data.txt", 'w') as fs:
-    #             try:
-    #                 fs.write(msg_file_path)
-    #                 messagebox.showinfo("File", "File save in F:\\Program PLC\\Solar_thermal_Project\\data")
-    #             except Exception as e:
-    #                 # print(e)
-    #                 messagebox.showinfo("File", "failed")
-    #         # print(len(msg_file_path))
-    #         # print(msg_file_path)
-    #     except AttributeError:
-    #         print('NoneType')
-    #         messagebox.showinfo("File", "failed")
+    def open_text_file(self):
+        global msg_file_path
+        msg_file_path = ''
+        d = {}
+        # file type
+        filetypes = (('text files', '*.txt'), ('All files', '*.*'))
+        # show the open file dialog
+        try:
+            f = fd.askopenfile(filetypes=filetypes)
+            for i in f.readlines()[1:]:
+                d['timestamp'] = i.split(',')[0]
+                d['x'] = i.split(',')[1]
+                d['y'] = i.split(',')[2][:-1]
+                msg_file_path += '*'
+                msg_file_path += json.dumps(d)
+                msg_file_path += '\n'
+            msg_file_path += '#'
+            with open("F:\\Program PLC\\Solar_thermal_Project\\data\\data.txt", 'w') as fs:
+                try:
+                    fs.write(msg_file_path)
+                    messagebox.showinfo("File", "File save in F:\\Program PLC\\Solar_thermal_Project\\data")
+                except Exception as e:
+                    # print(e)
+                    messagebox.showinfo("File", "failed")
+            # print(len(msg_file_path))
+            # print(msg_file_path)
+        except AttributeError:
+            print('NoneType')
+            messagebox.showinfo("File", "failed")
 
-    # def send_text_file(self):
-    #     try:      
-    #         index = int(self.clicked.get().replace("select ",''))
-    #         print(index)
-    #         global msg_file_path
-    #         self.msg_recv.config(
-    # ### url web browser ###text='File: 0 bytes')
-    #         webbrowser.open(self.url_update_path[index])
-    #     except ValueError:
-    #         messagebox.showerror("Error", "Select Client")
+    def send_text_file(self):
+        try:      
+            index = int(self.clicked.get().replace("select ",''))
+            print(index)
+            global msg_file_path
+            self.msg_recv.config(
+    ### url web browser ###text='File: 0 bytes')
+            webbrowser.open(self.url_update_path[index])
+        except ValueError:
+            messagebox.showerror("Error", "Select Client")
 
-    # def disabaled_button(self):
-    #     self.h_l.config(state=tk.DISABLED)
-    #     self.text_input.config(state=tk.DISABLED)
-    #     self.top_left_btn.config(state=tk.DISABLED)
-    #     self.top_right_btn.config(state=tk.DISABLED)
-    #     self.bottom_left_btn.config(state=tk.DISABLED)
-    #     self.bottom_right_btn.config(state=tk.DISABLED)
-    #     self.up_btn.config(state=tk.DISABLED)
-    #     self.down_btn.config(state=tk.DISABLED)
-    #     self.forward_btn.config(state=tk.DISABLED)
-    #     self.reverse_btn.config(state=tk.DISABLED)
-    #     self.origin_x.config(state=tk.DISABLED)
-    #     self.origin_y.config(state=tk.DISABLED)
-    #     self.path_btn.config(state=tk.DISABLED)
+    def disabaled_button(self):
+        self.h_l.config(state=tk.DISABLED)
+        self.text_input.config(state=tk.DISABLED)
+        self.top_left_btn.config(state=tk.DISABLED)
+        self.top_right_btn.config(state=tk.DISABLED)
+        self.bottom_left_btn.config(state=tk.DISABLED)
+        self.bottom_right_btn.config(state=tk.DISABLED)
+        self.up_btn.config(state=tk.DISABLED)
+        self.down_btn.config(state=tk.DISABLED)
+        self.forward_btn.config(state=tk.DISABLED)
+        self.reverse_btn.config(state=tk.DISABLED)
+        self.origin_x.config(state=tk.DISABLED)
+        self.origin_y.config(state=tk.DISABLED)
+        self.path_btn.config(state=tk.DISABLED)
  
-    # def enabal_button(self):
-    #     self.h_l.config(state=tk.NORMAL)
-    #     self.text_input.config(state=tk.NORMAL)
-    #     self.up_btn.config(state=tk.NORMAL)
-    #     self.down_btn.config(state=tk.NORMAL)
-    #     self.forward_btn.config(state=tk.NORMAL)
-    #     self.reverse_btn.config(state=tk.NORMAL)
-    #     self.top_left_btn.config(state=tk.NORMAL)
-    #     self.top_right_btn.config(state=tk.NORMAL)
-    #     self.bottom_left_btn.config(state=tk.NORMAL)
-    #     self.bottom_right_btn.config(state=tk.NORMAL)
-    #     self.origin_x.config(state=tk.NORMAL)
-    #     self.origin_y.config(state=tk.NORMAL)
-    #     self.path_btn.config(state=tk.NORMAL)
+    def enabal_button(self):
+        self.h_l.config(state=tk.NORMAL)
+        self.text_input.config(state=tk.NORMAL)
+        self.up_btn.config(state=tk.NORMAL)
+        self.down_btn.config(state=tk.NORMAL)
+        self.forward_btn.config(state=tk.NORMAL)
+        self.reverse_btn.config(state=tk.NORMAL)
+        self.top_left_btn.config(state=tk.NORMAL)
+        self.top_right_btn.config(state=tk.NORMAL)
+        self.bottom_left_btn.config(state=tk.NORMAL)
+        self.bottom_right_btn.config(state=tk.NORMAL)
+        self.origin_x.config(state=tk.NORMAL)
+        self.origin_y.config(state=tk.NORMAL)
+        self.path_btn.config(state=tk.NORMAL)
  
     #--------------------------run path---------------------------#
-    # def mode_call_back(self):
-    #     self.last_time_tracking = time.time()
-    #     print("Start Timer:", self.last_time_tracking)
-    #     if self.state:
-    #         self.mode_btn.config(text="Auto")
-    #         self.mode_btn.config(bg="green")
-    #         self.disabaled_button()
-    #         print("Auto Mode")
-    #         self.state = False
-    #         self.change_target = True
-    #         status = 0
-    #         self.time_working = 0
-    #     else:
-    #         self.mode_btn.config(text="Manual")
-    #         self.mode_btn.config(bg="gray")
-    #         self.enabal_button()
-    #         self.state = True
-    #         status = 1
-    #         self.comp = True
+    def mode_call_back(self):
+        self.last_time_tracking = time.time()
+        print("Start Timer:", self.last_time_tracking)
+        if self.state:
+            self.mode_btn.config(text="Auto")
+            self.mode_btn.config(bg="green")
+            self.disabaled_button()
+            print("Auto Mode")
+            self.state = False
+            self.change_target = True
+            status = 0
+            self.time_working = 0
+        else:
+            self.mode_btn.config(text="Manual")
+            self.mode_btn.config(bg="gray")
+            self.enabal_button()
+            self.state = True
+            status = 1
+            self.comp = True
     
 
     ### Here_is send command to heliostat
@@ -1134,118 +1134,118 @@ class App(tk.Tk):
 
 
     ### OpenCV operate ###
-    # def save_position(self):
-    #     if self.clicked.get().replace("select ",'') == '0':
-    #         if self.client_data['ip_addr'] == '192.168.1.110': 
-    #             self.write_data(self.path_recv_log, self.client_data['data']['curr_x'], self.client_data['data']['curr_y'])
-    #             print("Button Save Pressed.")
+    def save_position(self):
+        if self.clicked.get().replace("select ",'') == '0':
+            if self.client_data['ip_addr'] == '192.168.1.110': 
+                self.write_data(self.path_recv_log, self.client_data['data']['curr_x'], self.client_data['data']['curr_y'])
+                print("Button Save Pressed.")
 
     ### OpenCV operate ###
-    # def calculate_center(self, contours):
-        # m = cv2.moments(contours)
-        # if m['m00'] != 0:
-        #     cx = int(m['m10']/m['m00'])
-        #     cy = int(m['m01']/m['m00'])
-        # return (cx, cy)
+    def calculate_center(self, contours):
+        m = cv2.moments(contours)
+        if m['m00'] != 0:
+            cx = int(m['m10']/m['m00'])
+            cy = int(m['m01']/m['m00'])
+        return (cx, cy)
 
     ### OpenCV operate ###
-    # def get_contours(self, contours, img, x_medium, y_medium, path, print_str=True, dir_motor=0):
-    #     cv2.line(img, (x_medium, 0), (x_medium, img.shape[0]), (255,0,0), 1)
-    #     cv2.line(img, (0, y_medium), (img.shape[1], y_medium), (255,0,0), 1)
+    def get_contours(self, contours, img, x_medium, y_medium, path, print_str=True, dir_motor=0):
+        cv2.line(img, (x_medium, 0), (x_medium, img.shape[0]), (255,0,0), 1)
+        cv2.line(img, (0, y_medium), (img.shape[1], y_medium), (255,0,0), 1)
 
-    #     for cnt in contours:
-    #         if cv2.contourArea(cnt) > self.area.get():
-    #             self.area_px = cv2.contourArea(cnt)
-    #             cx, cy = self.calculate_center(cnt) #calculate x, y center contour
-    #             cv2.circle(img, (int(cx), int(cy)), 2, (255,0,0), cv2.FILLED)
-    #             cv2.putText(img ,f"X {int(cx)},Y {int(cy)}", (int(cx)-70, int(cy)-60), 2, 0.75, (255, 0, 0), 2)
-    #             #cv2.circle(self.roi, (int(cx),int(cy)), int(r) , (255, 0, 0), 2)
-    #             x_error = (cx - x_medium)
-    #             y_error = (cy - y_medium)
+        for cnt in contours:
+            if cv2.contourArea(cnt) > self.area.get():
+                self.area_px = cv2.contourArea(cnt)
+                cx, cy = self.calculate_center(cnt) #calculate x, y center contour
+                cv2.circle(img, (int(cx), int(cy)), 2, (255,0,0), cv2.FILLED)
+                cv2.putText(img ,f"X {int(cx)},Y {int(cy)}", (int(cx)-70, int(cy)-60), 2, 0.75, (255, 0, 0), 2)
+                #cv2.circle(self.roi, (int(cx),int(cy)), int(r) , (255, 0, 0), 2)
+                x_error = (cx - x_medium)
+                y_error = (cy - y_medium)
 
-    #             if print_str:
-    #                 cv2.putText(img, 'X Error: {:.2f}'.format(x_error/0.533), (5, 20), 2, 0.7, (0, 0, 255), 1)
-    #                 cv2.putText(img, 'Y Error: {:.2f}'.format(y_error/0.436), (5, 40), 2, 0.7, (0, 255, 0), 1)
-    #                 cv2.putText(img, 'Area[px]: {:.2f}'.format(self.area_px), (5, 60), 2, 0.7, (0, 255, 0), 1)
+                if print_str:
+                    cv2.putText(img, 'X Error: {:.2f}'.format(x_error/0.533), (5, 20), 2, 0.7, (0, 0, 255), 1)
+                    cv2.putText(img, 'Y Error: {:.2f}'.format(y_error/0.436), (5, 40), 2, 0.7, (0, 255, 0), 1)
+                    cv2.putText(img, 'Area[px]: {:.2f}'.format(self.area_px), (5, 60), 2, 0.7, (0, 255, 0), 1)
                 
-    #             if not self.state:
-    #                 # if self.change_target: 
-    #                 if time.time() - self.prev_time > 0.5: #0.05 every 50 ms send actual position
-    #                     self.prev_time = time.time()
-    #                     print(cx, cy)
-    #                     self.feed_bcak('x', cx, cy, self.kp.get(), self.ki.get(), self.kd.get(), x_medium, y_medium, self.max_speed.get(), self.off_set.get(), "1")
+                if not self.state:
+                    # if self.change_target: 
+                    if time.time() - self.prev_time > 0.5: #0.05 every 50 ms send actual position
+                        self.prev_time = time.time()
+                        print(cx, cy)
+                        self.feed_bcak('x', cx, cy, self.kp.get(), self.ki.get(), self.kd.get(), x_medium, y_medium, self.max_speed.get(), self.off_set.get(), "1")
 
-    #                 if (int(x_medium + self.off_set.get()) > cx > int(x_medium - self.off_set.get())) and (int(y_medium + self.off_set.get()) > cy > int(y_medium - self.off_set.get())):
-    #                     self.color = (0,255,0)
-    #                     if time.time() - self.last_time_update > 1:
-    #                         self.last_time_update = time.time()
-    #                         self.is_true = True #check position in target
-    #                 else:
-    #                     self.is_true = False
-    #                     self.color = (255,0,0)
+                    if (int(x_medium + self.off_set.get()) > cx > int(x_medium - self.off_set.get())) and (int(y_medium + self.off_set.get()) > cy > int(y_medium - self.off_set.get())):
+                        self.color = (0,255,0)
+                        if time.time() - self.last_time_update > 1:
+                            self.last_time_update = time.time()
+                            self.is_true = True #check position in target
+                    else:
+                        self.is_true = False
+                        self.color = (255,0,0)
 
-    #             cv2.drawContours(img, cnt, -1, self.color, 2)
+                cv2.drawContours(img, cnt, -1, self.color, 2)
                         
     ### OpenCV operate ###
-    # def offset_azimuth(self, dir, off_set, speed):
-    #     self.motor_x1["dir"] = dir
-    #     self.motor_x1["pwm"] = off_set
-    #     self.motor_x1['speed'] = int(speed)
+    def offset_azimuth(self, dir, off_set, speed):
+        self.motor_x1["dir"] = dir
+        self.motor_x1["pwm"] = off_set
+        self.motor_x1['speed'] = int(speed)
 
     ### OpenCV operate ###
-    # def show_frame(self):
-    #     lower = np.array([self.h_lower.get(), self.s_lower.get(), self.v_lower.get()], np.uint8)
-    #     upper = np.array([self.h_upper.get(), self.s_upper.get(), self.v_upper.get()], np.uint8)
-    #     lower_recv = np.array([self.h_lower.get(), self.s_lower.get(), self.val_low_val.get()], np.uint8)
-    #     upper_recv = np.array([self.h_upper.get(), self.s_upper.get(), self.v_upper.get()], np.uint8)
+    def show_frame(self):
+        lower = np.array([self.h_lower.get(), self.s_lower.get(), self.v_lower.get()], np.uint8)
+        upper = np.array([self.h_upper.get(), self.s_upper.get(), self.v_upper.get()], np.uint8)
+        lower_recv = np.array([self.h_lower.get(), self.s_lower.get(), self.val_low_val.get()], np.uint8)
+        upper_recv = np.array([self.h_upper.get(), self.s_upper.get(), self.v_upper.get()], np.uint8)
 
-    #     if self.open_vid:
-    #         _, frame = self.cap1.read()
-    #         origianl = frame.copy()
-    #         origianl = cv2.resize(origianl, (int(origianl.shape[1]*0.35), int(origianl.shape[0]*0.35)), cv2.INTER_AREA)
-    #         origianl = cv2.cvtColor(origianl, cv2.COLOR_BGR2RGB)
+        if self.open_vid:
+            _, frame = self.cap1.read()
+            origianl = frame.copy()
+            origianl = cv2.resize(origianl, (int(origianl.shape[1]*0.35), int(origianl.shape[0]*0.35)), cv2.INTER_AREA)
+            origianl = cv2.cvtColor(origianl, cv2.COLOR_BGR2RGB)
             
-    #         #crop image calibarte
-    #         self.roi = origianl[self.st_r.get(): self.end_r.get(), self.st_cl.get(): self.end_cl.get()]
-    #         self.roi = cv2.resize(self.roi, (640, 480), cv2.INTER_AREA)
-    #         hsv = cv2.cvtColor(self.roi, cv2.COLOR_RGB2HSV)
-    #         mask = cv2.inRange(hsv, lower, upper)
+            #crop image calibarte
+            self.roi = origianl[self.st_r.get(): self.end_r.get(), self.st_cl.get(): self.end_cl.get()]
+            self.roi = cv2.resize(self.roi, (640, 480), cv2.INTER_AREA)
+            hsv = cv2.cvtColor(self.roi, cv2.COLOR_RGB2HSV)
+            mask = cv2.inRange(hsv, lower, upper)
 
-    #         #crop image receiver
-    #         self.recv_frame = origianl[7:91, 306:403]
-    #         self.recv_frame = cv2.resize(self.recv_frame, (320, 320), cv2.INTER_AREA)
-    #         recv_hsv = cv2.cvtColor(self.recv_frame, cv2.COLOR_RGB2HSV)
-    #         recv_mask = cv2.inRange(recv_hsv, lower, upper)
+            #crop image receiver
+            self.recv_frame = origianl[7:91, 306:403]
+            self.recv_frame = cv2.resize(self.recv_frame, (320, 320), cv2.INTER_AREA)
+            recv_hsv = cv2.cvtColor(self.recv_frame, cv2.COLOR_RGB2HSV)
+            recv_mask = cv2.inRange(recv_hsv, lower, upper)
 
-    #         '''cv2.imshow('Receiver', recv_mask)
-    #         # self.roi = cv2.GaussianBlur(self.roi, (3, 3), cv2.BORDER_DEFAULT)
-    #         # roi = cv2.resize(roi, (origianl.shape[1], origianl.shape[0]), cv2.INTER_AREA)
-    #         # x_medium, y_medium = img.shape[1]//2, img.shape[0]//2
-    #         # x_medium, y_medium = self.roi.shape[1]//2, self.roi.shape[0]//2
-    #         # print(x_medium, y_medium)'''
+            '''cv2.imshow('Receiver', recv_mask)
+            # self.roi = cv2.GaussianBlur(self.roi, (3, 3), cv2.BORDER_DEFAULT)
+            # roi = cv2.resize(roi, (origianl.shape[1], origianl.shape[0]), cv2.INTER_AREA)
+            # x_medium, y_medium = img.shape[1]//2, img.shape[0]//2
+            # x_medium, y_medium = self.roi.shape[1]//2, self.roi.shape[0]//2
+            # print(x_medium, y_medium)'''
     
-    #         calibarte_contours, h = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-    #         sorted_calibarte_contours = sorted(calibarte_contours, key=cv2.contourArea, reverse=True)
+            calibarte_contours, h = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+            sorted_calibarte_contours = sorted(calibarte_contours, key=cv2.contourArea, reverse=True)
 
-    #         recv_contours, _ = cv2.findContours(recv_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-    #         sorted_recv_contours = sorted(recv_contours, key=cv2.contourArea, reverse=True)
+            recv_contours, _ = cv2.findContours(recv_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+            sorted_recv_contours = sorted(recv_contours, key=cv2.contourArea, reverse=True)
 
-    #         if self.state_change:
-    #             #Calibarte
-    #             if sorted_calibarte_contours: self.get_contours(sorted_calibarte_contours, self.roi, 320, 240, self.path_data_log1, True, 0)
-    #         else:
-    #             #Receiver
-    #             if sorted_recv_contours: self.get_contours(sorted_recv_contours, self.recv_frame, 160, 160, self.path_recv_log1, False, 1)
+            if self.state_change:
+                #Calibarte
+                if sorted_calibarte_contours: self.get_contours(sorted_calibarte_contours, self.roi, 320, 240, self.path_data_log1, True, 0)
+            else:
+                #Receiver
+                if sorted_recv_contours: self.get_contours(sorted_recv_contours, self.recv_frame, 160, 160, self.path_recv_log1, False, 1)
 
-    #         recv = Image.fromarray(self.recv_frame)
-    #         self.receiver_vid = ImageTk.PhotoImage(image=recv)
-    #         self.receiver_frame.create_image(0,0,anchor=tk.NW, image=self.receiver_vid)
+            recv = Image.fromarray(self.recv_frame)
+            self.receiver_vid = ImageTk.PhotoImage(image=recv)
+            self.receiver_frame.create_image(0,0,anchor=tk.NW, image=self.receiver_vid)
             
-    #         self.calibrate = Image.fromarray(self.roi)
-    #         self.calibrate = ImageTk.PhotoImage(image=self.calibrate)
-    #         # Update image
-    #         self.calibrate_frame.create_image(0, 0,  anchor=tk.NW, image=self.calibrate)
-    #         self.calibrate_frame.after(2, self.show_frame) #2
+            self.calibrate = Image.fromarray(self.roi)
+            self.calibrate = ImageTk.PhotoImage(image=self.calibrate)
+            # Update image
+            self.calibrate_frame.create_image(0, 0,  anchor=tk.NW, image=self.calibrate)
+            self.calibrate_frame.after(2, self.show_frame) #2
 
 if __name__ == "__main__":
     app = App()

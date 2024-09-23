@@ -22,53 +22,16 @@ class App(tk.Tk):
         super().__init__()
         #----------------------------------- global_variable -----------------------------------#
         self.is_true = False #check position in target
-        self.update_vid_status = True
-        self.open_vid = False
-        self.change_target = True
         self.state = True
         self.status = 1
-        self.start_time = 0
-        self.stop_time = 0
-        self.comp = True
-        self.time_working = 0
         self.status_run = 0
-        self.run_time = 0
-        self.prev_time = 0
         self.trackbar_length = 350
-        self.client_data = {}
-        self.currrent_step_yaxis = 0.0
-        self.previous_step_yaxis = 0.0
-
         self.data = {}
-        self.position_x = 0
-        self.position_y = 0
         self.color = (255, 0, 0)
         #---------------------------------------  variable   -----------------------------------#
-        self.current_value = tk.IntVar()
-        self.h_lower = tk.IntVar()
-        self.s_lower = tk.IntVar()
-        self.v_lower = tk.IntVar()
-        self.h_upper = tk.IntVar()
-        self.s_upper = tk.IntVar()
-        self.v_upper = tk.IntVar()
-        self.sat_low_val = tk.IntVar()
-        self.val_low_val = tk.IntVar()
         self.speed_manual = tk.IntVar(value=400)
-        self.step = tk.DoubleVar()
-        self.kp = tk.DoubleVar()
-        self.ki = tk.DoubleVar()
-        self.kd = tk.DoubleVar()
-        self.pos_x = tk.IntVar()
-        self.pos_y = tk.IntVar()
-        self.max_speed = tk.IntVar()
-        self.st_r = tk.IntVar()
-        self.end_r = tk.IntVar()
-        self.st_cl = tk.IntVar()
-        self.end_cl =tk.IntVar()
         self.clicked = tk.StringVar()
-        self.target_tracking = tk.StringVar()
 
-        self.client_list = ("select 0", "select 1", "select 2")
         self.url_list = ["http://192.168.0.106/"] 
         ### Here_is send command to heliostat ###
         self.url_request_update = ["http://192.168.0.106/update-data"]
@@ -78,12 +41,9 @@ class App(tk.Tk):
 
         self.path_data_log = 'F:\\Program PLC\\Solar_thermal_Project\\data_log\\'+f'calibrate_position_id_0_{datetime.now().strftime("%d_%m_%Y")}'+'.csv'
         self.path_recv_log = 'F:\\Program PLC\\Solar_thermal_Project\\data_log\\'+f'recv_position_id_0_{datetime.now().strftime("%d_%m_%Y")}.csv'
-        self.path_data_log1 = 'F:\\Program PLC\\Solar_thermal_Project\\data_log\\'+f'calibrate_position_id_1_{datetime.now().strftime("%d_%m_%Y")}'+'.csv'
-        self.path_recv_log1 = 'F:\\Program PLC\\Solar_thermal_Project\\data_log\\'+f'recv_position_id_1_{datetime.now().strftime("%d_%m_%Y")}.csv'
 
         self.state_change = True
 
-        # self.ADDR = ("192.168.1.2", 8080)
         self.list_ip_clients = {'0': '192.168.1.110',
                                 '1': '192.168.1.111'}
         
@@ -121,7 +81,6 @@ class App(tk.Tk):
         self.camera_tap1 = ttk.Frame(self.ip_cam_tap)
         self.camera_tap2 = ttk.Frame(self.ip_cam_tap)
         self.ip_cam_tap.add(self.camera_tap1, text ='Camera1')
-        # self.ip_cam_tap.add(self.camera_tap2, text ='Camera2')
         self.ip_cam_tap.pack(expand = 1, fill ="both")
         
         #----------------------------------------  Video Frame  ----------------------------------------#
@@ -253,16 +212,9 @@ class App(tk.Tk):
         self.led = tk_tools.Led(self.cnt_frame2, size=50, bg='blue')
         self.led.grid(row=0, column=2, columnspan=2)
         self.led.to_grey(on=True)
-
         #--------------------------------- **** PID_Parameter -----------------------------------------#
-        self.kp.set(2)
-        self.ki.set(0.2)
-
         #---------------------------------------- **** Set_points_X_Y_speed  -----------------------------------------#
-        self.pos_x.set(320)
-        self.pos_y.set(240)
         self.max_speed.set(200)
-
         #----------------------------------------- **** off_set_x_y_calibarte -----------------------------------------#
         self.off_set_x = tk.Text(self.cnt_frame2, height=1, width=10, font=('Arial', 12), )
         self.off_set_x.grid(row=5, column=1, pady=2.5)
